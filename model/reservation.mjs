@@ -5,7 +5,7 @@ const reservationSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "ReservationHolder",
   },
-  hall_id: { type: mongoose.Schema.Types.ObjectId, ref: "Hall" },
+  hall_id: { type: mongoose.Schema.Types.ObjectId, ref: "hall" },
   date: { type: Date },
   start_time: { type: String }, // Or Date if using DateTime type
   end_time: { type: String },
