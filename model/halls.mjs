@@ -1,11 +1,11 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose from "mongoose";
 
-const hallModel = Schema({
-  hall_name: { type: String },
+const hallSchema = new mongoose.Schema({
+  hall_name: { type: String, maxlength: 100 },
   hall_facility: { type: String },
   capacity: { type: Number },
-  type: { type: String },
-  primary_in_charge: { type: String },
+  type: { type: String, maxlength: 10 },
+  primary_in_charge: { type: String, maxlength: 100 },
 });
 
-export const Hall = mongoose.model("Hall", hallModel);
+export default mongoose.model("Hall", hallSchema);

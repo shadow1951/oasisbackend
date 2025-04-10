@@ -22,6 +22,7 @@ const corsoption = {
   credentials: true,
 };
 
+app.use(express.json());
 app.use(cookieParser());
 app.use(cors(corsoption));
 app.use("/", indexRouter);

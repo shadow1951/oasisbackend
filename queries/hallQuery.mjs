@@ -1,4 +1,5 @@
-import { Hall } from "../model/halls.mjs";
+import halls from "../model/halls.mjs";
+const Hall = halls;
 
 export const addHall = async (hallData) => {
   try {

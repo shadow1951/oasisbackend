@@ -2,11 +2,6 @@ import { addHall } from "../queries/hallQuery.mjs";
 
 export const addHallCtrl = async (req, res) => {
   const hallData = req.body;
-
-  if (!hallData || Object.keys(hallData).length === 0) {
-    return res.status(400).json({ error: "Missing data field." });
-  }
-
   try {
     const result = await addHall(hallData);
     return res.status(201).json({
