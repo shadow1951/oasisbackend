@@ -1,8 +1,7 @@
-import { Hall } from "../model/hall.mjs";
+import Hall from "../model/halls.mjs"; // Assuming default export
 
 export const addHall = async (hallData) => {
   try {
-    // Check if all required fields are present
     const missingFields = [];
 
     if (!hallData.hallName) missingFields.push("hallName");
@@ -11,27 +10,33 @@ export const addHall = async (hallData) => {
     if (!hallData.type) missingFields.push("type");
     if (!hallData.primaryInCharge) missingFields.push("primaryInCharge");
 
-    // If there are missing fields, throw a professional error message
     if (missingFields.length > 0) {
       throw new Error(
         `The following required fields are missing: ${missingFields.join(
           ", "
-        )}.Please provide all required information and try again.`
+        )}. Please provide all required information and try again.`
       );
     }
 
-    // Proceed with the database insert
-    const result = await db.insert(halls).values(hallData).execute();
-
-    return result; // Successfully added the hall
-  } catch (error) {
-    if (error.code === "23505") {
-      // Unique violation error code in PostgreSQL
+    // Optional: Check for duplicate hall name
+    const existing = await Hall.findOne({ hall_name: hallData.hallName });
+    if (existing) {
       throw new Error(
         "A hall with this name already exists. Please choose a different name."
       );
-    } else {
-      throw new Error(`Error adding hall: ${error.message}`);
     }
+
+    const newHall = new Hall({
+      hall_name: hallData.hallName,
+      hall_facility: hallData.hallFacility,
+      capacity: hallData.capacity,
+      type: hallData.type,
+      primary_in_charge: hallData.primaryInCharge,
+    });
+
+    const result = await newHall.save();
+    return result;
+  } catch (error) {
+    throw new Error(`Error adding hall: ${error.message}`);
   }
 };
