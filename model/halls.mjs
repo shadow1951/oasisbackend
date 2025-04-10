@@ -8,4 +8,4 @@ const hallModel = Schema({
   primary_in_charge: { type: String },
 });
 
-export const Hall = mongoose.model("Hall", hallModel);
+export const Hall = mongoose.model("hall", hallModel);
