@@ -1,5 +1,6 @@
 import { addHall } from "../queries/hallQuery.mjs";
 import { deleteHall } from "../queries/hallQuery.mjs";
+import { updateHall } from "../queries/hallQuery.mjs";
 
 export const addHallCtrl = async (req, res) => {
   const hallData = req.body;
@@ -39,6 +40,35 @@ export const deleteHallCtrl = async (req, res) => {
       return res.status(404).json({ error: error.message });
     }
     console.error("Unexpected Error in deleteHallCtrl:", error);
+    return res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+export const updateHallCtrl = async (req, res) => {
+  try {
+    const { hallId, field_name, changes } = req.body;
+
+    const updatedField = await updateHall(hallId, field_name, changes);
+    return res.status(200).json(updatedField);
+  } catch (error) {
+    // Custom error messages
+    if (error.message.includes("Invalid column name"))
+      return res.status(400).json({ error: error.message });
+
+    if (error.message.includes("must be a"))
+      return res.status(400).json({ error: error.message });
+
+    if (error.message.includes("Invalid hallId format"))
+      return res.status(400).json({ error: error.message });
+
+    if (error.message.includes("No hall found"))
+      return res.status(404).json({ error: error.message });
+
+    if (error.message.includes("required"))
+      return res.status(400).json({ error: error.message });
+
+    // Unhandled errors
+    console.error("Unexpected error in updateHallEntry:", error);
     return res.status(500).json({ error: "Internal server error" });
   }
 };
