@@ -25,7 +25,6 @@ export const addHallCtrl = async (req, res) => {
 
 export const deleteHallCtrl = async (req, res) => {
   const { hallId } = req.params;
-
   try {
     const result = await deleteHall(hallId);
     return res.status(200).json({
@@ -33,6 +32,9 @@ export const deleteHallCtrl = async (req, res) => {
       data: result,
     });
   } catch (error) {
+    if (error.message.includes("hallId is required to delete a hall"))
+      return res.status(400).json({ error: error.message });
+
     if (error.message.includes("Hall not found")) {
       return res.status(404).json({ error: error.message });
     }

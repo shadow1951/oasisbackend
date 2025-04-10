@@ -4,6 +4,6 @@ import { addHallCtrl, deleteHallCtrl } from "../controller/hallManage.mjs";
 const router = Router();
 
 router.post("/addHall", addHallCtrl);
-router.post("/deleteHall", deleteHallCtrl);
+router.delete("/deleteHall/:hallId", deleteHallCtrl);
 
 export default router;
