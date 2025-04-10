@@ -1,4 +1,4 @@
-import Hall from "../model/halls.mjs"; // Assuming default export
+import { Hall } from "../model/halls.mjs";
 
 export const addHall = async (hallData) => {
   try {
