@@ -41,3 +41,21 @@ export const addHall = async (hallData) => {
     throw new Error(`Error adding hall: ${error.message}`);
   }
 };
+
+export const deleteHall = async (hallId) => {
+  try {
+    if (!hallId) {
+      throw new Error("hallId is required to delete a hall.");
+    }
+
+    const deletedHall = await Hall.findByIdAndDelete(hallId);
+
+    if (!deletedHall) {
+      throw new Error("Hall not found. It may have already been deleted.");
+    }
+
+    return deletedHall;
+  } catch (error) {
+    throw new Error(`Error deleting hall: ${error.message}`);
+  }
+};

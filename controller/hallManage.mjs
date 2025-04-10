@@ -21,3 +21,21 @@ export const addHallCtrl = async (req, res) => {
     return res.status(500).json({ error: "Internal server error" });
   }
 };
+
+export const deleteHallCtrl = async (req, res) => {
+  const { hallId } = req.params;
+
+  try {
+    const result = await deleteHall(hallId);
+    return res.status(200).json({
+      message: "Hall deleted successfully.",
+      data: result,
+    });
+  } catch (error) {
+    if (error.message.includes("Hall not found")) {
+      return res.status(404).json({ error: error.message });
+    }
+    console.error("Unexpected Error in deleteHallCtrl:", error);
+    return res.status(500).json({ error: "Internal server error" });
+  }
+};
