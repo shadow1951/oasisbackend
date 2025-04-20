@@ -19,3 +19,19 @@ export const addDummyUser = async (req, res, next) => {
       .json({ message: "Error adding dummy user", error: err.message });
   }
 };
+
+export const deleteDummyUser = async (req, res, next) => {
+  try {
+    const id = req.user.id;
+    const result = await User.findByIdAndDelete(id);
+    if (!result) {
+      return res.status(404).json({ message: "Dummy user not found" });
+    }
+    res.status(200).json({ message: "Dummy user deleted" });
+  } catch (err) {
+    console.error(err);
+    res
+      .status(500)
+      .json({ message: "Error deleting dummy user", error: err.message });
+  }
+};
