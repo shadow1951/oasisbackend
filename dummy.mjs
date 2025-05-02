@@ -35,3 +35,9 @@ export const deleteDummyUser = async (req, res, next) => {
       .json({ message: "Error deleting dummy user", error: err.message });
   }
 };
+
+export const temporaryVallidation = async (req, res, next) => {
+  req.user = req.user || {};
+  req.user.id = "681518a002d2fd8c7fde040a";
+  next();
+};
