@@ -3,6 +3,7 @@ import { addReservation } from "../queries/reservationHolder.mjs";
 export const getReservation = async (req, res) => {
   try {
     const { id, reserverId } = req.user;
+    console.log(reserverId, id);
     const {
       hallId,
       eventName,

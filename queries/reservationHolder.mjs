@@ -18,3 +18,32 @@ export const addReservationHolderQuery = async (reservationHolderData) => {
     res.status(500).json({ message: "Error adding reservation holder" });
   }
 };
+
+export const addReservation = async (reservationData) => {
+  const {
+    hallId,
+    eventName,
+    description,
+    startDate,
+    startTime,
+    endDate,
+    endTime,
+  } = reservationData;
+
+  try {
+    const newReservation = new reservationHolder({
+      hallId,
+      eventName,
+      description,
+      startDate,
+      startTime,
+      endDate,
+      endTime,
+    });
+    const result = await newReservation.save();
+    return { message: "Reservation added successfully", result: result };
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error adding reservation" });
+  }
+};

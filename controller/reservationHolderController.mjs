@@ -1,6 +1,6 @@
 import { addReservationHolderQuery } from "../queries/reservationHolder.mjs";
 
-export const addReservationHolder = async (req, res) => {
+export const addReservationHolder = async (req, res, next) => {
   const { reserverName, reserverPhoneNumber, reservationEmail } = req.body;
   const missingFields = [];
 
@@ -35,10 +35,8 @@ export const addReservationHolder = async (req, res) => {
       reservationHolderData
     );
 
-    req.user.reserverId = newReservationHolder._id;
-    return res.status(201).json({
-      data: newReservationHolder,
-    });
+    req.user.reserverId = newReservationHolder.result._id;
+    next();
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }

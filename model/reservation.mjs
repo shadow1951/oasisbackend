@@ -4,14 +4,43 @@ const reservationSchema = new mongoose.Schema({
   reserver_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "ReservationHolder",
+    required: true,
   },
-  hall_id: { type: mongoose.Schema.Types.ObjectId, ref: "Hall" },
-  date: { type: Date },
-  start_time: { type: String }, // Or Date if using DateTime type
-  end_time: { type: String },
-  purpose: { type: String, maxlength: 255 },
-  status: { type: String, maxlength: 20 },
-  food_requirement: { type: Boolean },
+  hall_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Hall",
+    required: true,
+  },
+  start_date: {
+    type: Date,
+    required: true,
+  },
+  end_date: {
+    type: Date,
+    required: true,
+  },
+  start_time: {
+    type: String,
+    required: true,
+  },
+  end_time: {
+    type: String,
+    required: true,
+  },
+  purpose: {
+    type: String,
+    maxlength: 255,
+    required: true,
+  },
+  status: {
+    type: String,
+    maxlength: 20,
+    default: "pending",
+  },
+  food_requirement: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 export default mongoose.model("Reservation", reservationSchema);
