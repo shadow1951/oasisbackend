@@ -41,3 +41,9 @@ export const temporaryVallidation = async (req, res, next) => {
   req.user.id = "681518a002d2fd8c7fde040a";
   next();
 };
+
+export const temporaryVallidationReserver = async (req, res, next) => {
+  req.user = req.user || {};
+  req.user.reserverId = "";
+  next();
+};

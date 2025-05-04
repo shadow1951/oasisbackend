@@ -34,6 +34,8 @@ export const addReservationHolder = async (req, res) => {
     const newReservationHolder = await addReservationHolderQuery(
       reservationHolderData
     );
+
+    req.user.reserverId = newReservationHolder._id;
     return res.status(201).json({
       data: newReservationHolder,
     });
