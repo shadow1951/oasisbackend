@@ -1,4 +1,5 @@
 import { addReservation } from "../queries/reservationHolder.mjs";
+import { deleteReservationById } from "../queries/reservationHolder.mjs";
 
 export const getReservation = async (req, res) => {
   try {
@@ -54,6 +55,34 @@ export const getReservation = async (req, res) => {
 
     return res.status(201).json({
       data: newReservation,
+    });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
+
+export const deleteReservation = async (req, res) => {
+  try {
+    const { reservationId } = req.params;
+
+    // Check if reservationId is provided
+    if (!reservationId) {
+      return res
+        .status(400)
+        .json({ message: "Missing required parameter: reservationId" });
+    }
+
+    const deletedReservation = await deleteReservationById(reservationId);
+
+    if (!deletedReservation) {
+      return res
+        .status(404)
+        .json({ message: "Reservation not found or already deleted" });
+    }
+
+    return res.status(200).json({
+      message: "Reservation deleted successfully",
+      data: deletedReservation,
     });
   } catch (error) {
     return res.status(500).json({ message: error.message });
