@@ -65,7 +65,6 @@ export const deleteReservation = async (req, res) => {
   try {
     const { reservationId } = req.params;
 
-    // Check if reservationId is provided
     if (!reservationId) {
       return res
         .status(400)
