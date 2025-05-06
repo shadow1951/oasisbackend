@@ -60,7 +60,6 @@ export const deleteReservationById = async (id) => {
     }
     return { message: "Reservation deleted successfully", result: result };
   } catch (error) {
-    console.error(error);
     return { message: "Error deleting reservation" };
   }
 };
