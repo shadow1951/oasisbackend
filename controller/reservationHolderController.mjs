@@ -25,10 +25,10 @@ export const addReservationHolder = async (req, res, next) => {
   try {
     const id = req.user.id;
     const reservationHolderData = {
-      reserverName: reserverName,
-      reserverPhoneNumber: reserverPhoneNumber,
-      reservationEmail: reservationEmail,
-      id: id,
+      reserver_name: reserverName,
+      reserver_phoneNumber: reserverPhoneNumber,
+      reserver_email: reservationEmail,
+      user_id: id,
     };
 
     const newReservationHolder = await addReservationHolderQuery(
