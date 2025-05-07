@@ -63,7 +63,7 @@ export const getReservation = async (req, res) => {
 
 export const deleteReservation = async (req, res) => {
   try {
-    const { reservationId } = req.params;
+    const reservationId = req.params.id;
 
     if (!reservationId) {
       return res
