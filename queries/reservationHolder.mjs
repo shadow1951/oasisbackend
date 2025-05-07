@@ -54,12 +54,23 @@ export const addReservation = async (reservationData) => {
 
 export const deleteReservationById = async (id) => {
   try {
-    const result = await reservationHolder.findByIdAndDelete(id);
-    if (!result) {
+    const deletedReservation = await reservation.findByIdAndDelete(id);
+
+    if (!deletedReservation) {
       return { message: "Reservation not found" };
     }
-    return { message: "Reservation deleted successfully", result: result };
+
+    const reserverId = deletedReservation.reserver_id;
+    if (reserverId) {
+      await reservationHolder.findByIdAndDelete(reserverId);
+    }
+
+    return {
+      message: "Reservation and associated reserver deleted successfully",
+      deletedReservation: deletedReservation,
+    };
   } catch (error) {
+    console.error(error);
     return { message: "Error deleting reservation" };
   }
 };
