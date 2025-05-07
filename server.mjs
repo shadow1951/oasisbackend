@@ -29,6 +29,7 @@ app.use(cookieParser());
 app.use(cors(corsoption));
 app.use("/", indexRouter);
 app.use("/", reservationHolderRouter);
+app.use("/", reservationRouter);
 
 app.listen(
   process.env.PORT,
