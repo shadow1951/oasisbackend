@@ -23,7 +23,8 @@ export const jwtVerify = (req, res, next) => {
         .json({ message: "Token data is invalid or manipulated" });
     }
 
-    req.user = decoded;
+    req.user.userid = decoded.id;
+    req.user.email = decoded.email;
     next();
   } catch (error) {
     return res.status(403).json({ message: "Invalid or expired token" });
