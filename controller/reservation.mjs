@@ -42,15 +42,14 @@ export const getReservation = async (req, res) => {
     const newReservationData = {
       reserver_id: reserverId,
       hall_id: hallId,
-      start_date: new Date(startDate).toISOString(),
-      end_date: new Date(endDate).toISOString(),
+      start_date: new Date(startDate).toISOString().slice(0, 10),
+      end_date: new Date(endDate).toISOString().slice(0, 10),
       start_time: startTime,
       end_time: endTime,
       purpose: description,
       status: "pending",
       food_requirement: foodRequirement || false,
     };
-
     const newReservation = await addReservation(newReservationData);
 
     return res.status(201).json({
