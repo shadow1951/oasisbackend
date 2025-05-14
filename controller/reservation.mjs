@@ -42,8 +42,8 @@ export const getReservation = async (req, res) => {
     const newReservationData = {
       reserver_id: reserverId,
       hall_id: hallId,
-      start_date: new Date(startDate),
-      end_date: new Date(endDate),
+      start_date: new Date(startDate).toISOString(),
+      end_date: new Date(endDate).toISOString(),
       start_time: startTime,
       end_time: endTime,
       purpose: description,
