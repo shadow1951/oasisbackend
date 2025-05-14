@@ -1,5 +1,7 @@
+import { check } from "express-validator";
 import { addReservation } from "../queries/reservationHolder.mjs";
 import { deleteReservationById } from "../queries/reservationHolder.mjs";
+import { checkTimeSlotAvailability } from "../functions.mjs";
 
 export const getReservation = async (req, res) => {
   try {
@@ -36,6 +38,20 @@ export const getReservation = async (req, res) => {
       return res.status(400).json({
         message:
           "Missing one or more required reservation parameters in request body",
+      });
+    }
+
+    //check for time slot availability
+    const resultOfTimeSlot = await checkTimeSlotAvailability(
+      startDate,
+      endDate,
+      startTime,
+      endTime,
+      hallId
+    );
+    if (!resultOfTimeSlot) {
+      return res.status(400).json({
+        message: "The selected time slot is not available.",
       });
     }
 
