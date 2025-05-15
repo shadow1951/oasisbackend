@@ -17,7 +17,10 @@ if (process.env.NODE_ENV !== "production") {
   dotenv.config({ path: envPath });
   mongoose.connect(process.env.DATABASE_URL);
   console.log("Succesfully connected to the database");
+} else {
+  console.log("Database connection failed");
 }
+
 const corsoption = {
   origin: `${process.env.fDomain}`,
   methods: "GET,HEAD,PUT,POST,DELETE",
